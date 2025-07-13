@@ -1,0 +1,17 @@
+# Dependencias de Node.js
+node_modules/
+
+# Archivos de configuración de entorno (contienen credenciales sensibles)
+.env
+
+# Archivos de logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de sistema operativo (ej. macOS)
+.DS_Store
+
+# Opcional: Ignorar configuración de VS Code
+.vscode/
