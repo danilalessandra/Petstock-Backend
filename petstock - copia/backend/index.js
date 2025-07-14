@@ -14,7 +14,7 @@ const errorHandler = require('./middleware/errorHandler');
 const db = require('./models');
 
 // Importar la función de programación de cron jobs para vencimientos
-const { scheduleExpirationChecks } = require('./cronJobs/checkExpirations'); // <-- ¡NUEVA IMPORTACIÓN!
+const { scheduleExpirationChecks } = require('./cronJobs/checkExpirations');
 
 // Rutas
 const authRoutes = require('./routes/auth');
@@ -30,17 +30,24 @@ const inventarioRoutes = require('./routes/inventarioRoutes');
 
 const app = express();
 const server = http.createServer(app);
+
 const io = socketIo(server, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: [
+            'http://localhost:3000',
+            'https://petstock-app.netlify.app'
+        ],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         credentials: true
     }
 });
 
-// Configuración CORS para Express (rutas HTTP REST)
+
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: [
+        'http://localhost:3000',
+        'https://petstock-app.netlify.app'
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -99,7 +106,7 @@ db.sequelize.sync({ alter: true }).then(() => {
     server.listen(PORT, () => {
         console.log(`Backend corriendo en http://localhost:${PORT}`);
         // --- ¡Programar la verificación de vencimientos al iniciar el servidor! ---
-        scheduleExpirationChecks(io); // Pasa la instancia de Socket.IO al cron job
+        scheduleExpirationChecks(io);
     });
 }).catch(err => {
     console.error('Error al conectar o sincronizar la base de datos:', err);
