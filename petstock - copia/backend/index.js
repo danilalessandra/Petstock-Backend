@@ -35,7 +35,8 @@ const io = socketIo(server, {
     cors: {
         origin: [
             'http://localhost:3000',
-            'https://petstock-app.netlify.app'
+            'https://petstock-app.netlify.app',
+            'https://petstock.netlify.app'
         ],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         credentials: true
@@ -46,7 +47,8 @@ const io = socketIo(server, {
 const corsOptions = {
     origin: [
         'http://localhost:3000',
-        'https://petstock-app.netlify.app'
+        'https://petstock-app.netlify.app',
+        'https://petstock.netlify.app'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
